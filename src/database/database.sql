@@ -1,13 +1,3 @@
-DROP TABLE IF EXISTS ingredients;
-DROP TABLE IF EXISTS seasons;
-DROP TABLE IF EXISTS courses;
-DROP TABLE IF EXISTS permissions;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS recipes;
-DROP TABLE IF EXISTS steps;
-DROP TABLE IF EXISTS images;
-DROP TABLE IF EXISTS ingredients_recipes;
-
 CREATE TABLE `ingredients` ( 
     `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL,
@@ -90,7 +80,7 @@ CREATE TABLE `ingredients_recipes` (
     `ingredient_id` INT(10) UNSIGNED NOT NULL, 
     `recipe_id` INT(10) UNSIGNED NOT NULL,
     `quantity` DOUBLE NOT NULL,
-    PRIMARY KEY (`id`, `recipes_id`),
+    PRIMARY KEY (`ingredient_id`, `recipe_id`),
     KEY `FK_ingredients_recipes_ingredients` (`ingredient_id`),
     KEY `FK_ingredients_recipes_recipes` (`recipe_id`),
     CONSTRAINT `FK_ingredients_recipes_ingredients` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
