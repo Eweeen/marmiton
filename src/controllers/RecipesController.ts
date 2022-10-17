@@ -4,8 +4,13 @@ import { CrudController } from "./CrudController";
 
 export class RecipeController extends CrudController
 {
-    create(req: Request, res: Response): void {
-        throw new Error("Method create not implemented.");
+    public create(req: Request, res: Response): void {
+        Recipe.create(req.body)
+        .then(recipe => res.json(recipe))
+        .catch(error => {
+            console.log(error);
+            res.json({ "message": "Insertion impossible" });
+        });
     };
 
     public async read(req: Request, res: Response): Promise<void> {

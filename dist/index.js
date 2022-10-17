@@ -21,6 +21,7 @@ console.log("Le token JWT : ", (0, jwt_1.generateToken)());
 app.get("/", (req, res) => res.send("Hello world !"));
 // Recipes routes
 app.get("/recipes", Recipe_1.router);
+app.post("/recipe/add", Recipe_1.router);
 app.get("/recipe/show/:id", Recipe_1.router);
 // Users routes
 app.get("/users", User_1.router);

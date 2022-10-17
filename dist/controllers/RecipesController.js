@@ -5,7 +5,12 @@ const Recipe_1 = require("../models/Recipe");
 const CrudController_1 = require("./CrudController");
 class RecipeController extends CrudController_1.CrudController {
     create(req, res) {
-        throw new Error("Method create not implemented.");
+        Recipe_1.Recipe.create(req.body)
+            .then(recipe => res.json(recipe))
+            .catch(error => {
+            console.log(error);
+            res.json({ "message": "Insertion impossible" });
+        });
     }
     ;
     async read(req, res) {

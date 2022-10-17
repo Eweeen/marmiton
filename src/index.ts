@@ -21,6 +21,7 @@ app.get("/", (req, res) => res.send("Hello world !"));
 
 // Recipes routes
 app.get("/recipes", recipeRouter);
+app.post("/recipe/add", recipeRouter);
 app.get("/recipe/show/:id", recipeRouter);
 
 // Users routes
