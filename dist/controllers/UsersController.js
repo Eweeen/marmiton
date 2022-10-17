@@ -8,13 +8,21 @@ class UserController extends CrudController_1.CrudController {
         throw new Error("Method create not implemented.");
     }
     ;
-    async read(req, res) {
-        const users = await User_1.User.findAll();
-        res.json(users);
+    read(req, res) {
+        User_1.User.findAll()
+            .then(users => res.json(users))
+            .catch(error => {
+            console.log(error);
+            res.json({ message: "Cannot read user" });
+        });
     }
-    async show(req, res) {
-        const user = await User_1.User.findOne({ where: { id: req.params.id } });
-        res.json(user);
+    show(req, res) {
+        User_1.User.findOne({ where: { id: req.params.id } })
+            .then(user => res.json(user))
+            .catch(error => {
+            console.log(error);
+            res.json({ message: `Cannot find user with id ${req.params.id}` });
+        });
     }
     update(req, res) {
         throw new Error("Method update not implemented.");
