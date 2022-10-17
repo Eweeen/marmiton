@@ -13,7 +13,7 @@ export function generateToken(user: User) {
     firstname: user.firstname,
     userId: user.id,
     // Les accès à l'API que l'on souhaite ouvrir à ce partenaire
-    accessTypes: [user?.permission.role]
+    accessTypes: [user.permission.role]
   };
   // Lecture du fichier private.key permettant de crypter le JWT
   const privateKey = fs.readFileSync(path.join(__dirname, './../../private.key'));
