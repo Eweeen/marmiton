@@ -31,10 +31,7 @@ Recipe.init({
     slug: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
-        validate: {
-            isUrl: true,
-        }
+        unique: true
     },
     description: {
         type: DataTypes.STRING,
