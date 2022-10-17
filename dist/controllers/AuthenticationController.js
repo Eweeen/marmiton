@@ -1,4 +1,7 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthenticationController = void 0;
 const jwt_1 = require("../authentication/jwt");
@@ -7,6 +10,7 @@ const User_1 = require("../models/User");
 const CrudController_1 = require("./CrudController");
 const bcrypt_1 = require("bcrypt");
 const constants_1 = require("../config/constants");
+const http_status_1 = __importDefault(require("http-status"));
 class AuthenticationController extends CrudController_1.CrudController {
     async signin(req, res) {
         let user = req.body;
@@ -40,11 +44,11 @@ class AuthenticationController extends CrudController_1.CrudController {
                 res.json({ token: token });
             }
             else {
-                res.json({ message: "Email or password incorrect" });
+                res.status(http_status_1.default.UNAUTHORIZED).json({ message: "Email or password incorrect" });
             }
         }
         else {
-            res.json({ message: "Email or password incorrect" });
+            res.status(http_status_1.default.UNAUTHORIZED).json({ message: "Email or password incorrect" });
         }
     }
 }

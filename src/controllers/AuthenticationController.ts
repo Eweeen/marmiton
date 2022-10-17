@@ -5,6 +5,7 @@ import { User } from "../models/User";
 import { CrudController } from "./CrudController";
 import { hash, compare } from 'bcrypt';
 import { BCRYPT_ROUND } from "../config/constants";
+import status from 'http-status';
 
 export class AuthenticationController extends CrudController
 {
@@ -41,10 +42,10 @@ export class AuthenticationController extends CrudController
                 const token = generateToken(user);
                 res.json({ token: token });
             } else {
-                res.json({ message: "Email or password incorrect" });
+                res.status(status.UNAUTHORIZED).json({ message: "Email or password incorrect" });
             }
         } else {
-            res.json({ message: "Email or password incorrect" });
+            res.status(status.UNAUTHORIZED).json({ message: "Email or password incorrect" });
         }
     }
 }
