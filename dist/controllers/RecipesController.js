@@ -12,7 +12,7 @@ class RecipeController extends CrudController_1.CrudController {
                 .then(recipe => res.json(recipe))
                 .catch(error => {
                 console.log(error);
-                res.json({ "message": "Insertion impossible" });
+                res.json({ message: "Insertion impossible" });
             });
         }
         res.send("Name accept only alphanumeric catacters.");

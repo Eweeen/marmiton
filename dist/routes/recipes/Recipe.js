@@ -34,7 +34,7 @@ const recipeController = new RecipesController_1.RecipeController();
 exports.router = express_1.default.Router({
     strict: true
 });
-exports.router.route('/recipes').get(Auth.authorize(["getRecipList"]), recipeController.read);
-exports.router.route('/recipe/add').post(recipeController.create);
-exports.router.route('/recipe/show/:id').get(recipeController.show);
-exports.router.route('/recipe/update/:id').patch(recipeController.update);
+exports.router.route('/recipes').get(Auth.authorize(["administrateur"]), recipeController.read);
+exports.router.route('/recipe/add').post(Auth.authorize(["administrateur", "editeur"]), recipeController.create);
+exports.router.route('/recipe/show/:id').get(Auth.authorize(["administrateur", "editeur", "membre"]), recipeController.show);
+exports.router.route('/recipe/update/:id').patch(Auth.authorize(["administrateur", "editeur"]), recipeController.update);

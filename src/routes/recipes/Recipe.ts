@@ -8,7 +8,7 @@ export const router = express.Router({
     strict: true
 });
 
-router.route('/recipes').get(Auth.authorize(["getRecipList"]), recipeController.read);
-router.route('/recipe/add').post(recipeController.create);
-router.route('/recipe/show/:id').get(recipeController.show);
-router.route('/recipe/update/:id').patch(recipeController.update);
+router.route('/recipes').get(Auth.authorize(["administrateur"]), recipeController.read);
+router.route('/recipe/add').post(Auth.authorize(["administrateur", "editeur"]), recipeController.create);
+router.route('/recipe/show/:id').get(Auth.authorize(["administrateur", "editeur", "membre"]), recipeController.show);
+router.route('/recipe/update/:id').patch(Auth.authorize(["administrateur", "editeur"]), recipeController.update);
