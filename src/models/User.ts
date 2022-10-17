@@ -10,6 +10,7 @@ export class User extends Model
     public mail!: string;
     public password!: string;
     public permission_id!: number;
+    public permission!: Permission;
 }
 
 User.init({
@@ -29,7 +30,10 @@ User.init({
     mail: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            isEmail: true,
+        }
     },
     password: {
         type: DataTypes.STRING,
@@ -37,6 +41,7 @@ User.init({
     },
     permission_id: {
         type: DataTypes.INTEGER,
+        defaultValue: 1,
         allowNull: false,
         references: {
             model: Permission,
@@ -47,5 +52,8 @@ User.init({
 {
     sequelize,
     tableName: 'users',
-    timestamps: false
-})
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+});
+User.belongsTo(Permission, {foreignKey: 'permission_id', as: 'permission'});

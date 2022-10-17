@@ -24,7 +24,10 @@ User.init({
     mail: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            isEmail: true,
+        }
     },
     password: {
         type: sequelize_1.DataTypes.STRING,
@@ -32,6 +35,7 @@ User.init({
     },
     permission_id: {
         type: sequelize_1.DataTypes.INTEGER,
+        defaultValue: 1,
         allowNull: false,
         references: {
             model: Permission_1.Permission,
@@ -41,5 +45,8 @@ User.init({
 }, {
     sequelize: database_1.sequelize,
     tableName: 'users',
-    timestamps: false
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
 });
+User.belongsTo(Permission_1.Permission, { foreignKey: 'permission_id', as: 'permission' });
