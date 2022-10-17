@@ -23,6 +23,7 @@ app.get("/", (req, res) => res.send("Hello world !"));
 app.get("/recipes", Recipe_1.router);
 app.post("/recipe/add", Recipe_1.router);
 app.get("/recipe/show/:id", Recipe_1.router);
+app.patch("/recipe/update/:id", Recipe_1.router);
 // Users routes
 app.get("/users", User_1.router);
 app.get("/user/:id", User_1.router);

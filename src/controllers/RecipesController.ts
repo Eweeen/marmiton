@@ -5,12 +5,17 @@ import { CrudController } from "./CrudController";
 export class RecipeController extends CrudController
 {
     public create(req: Request, res: Response): void {
-        Recipe.create(req.body)
-        .then(recipe => res.json(recipe))
-        .catch(error => {
-            console.log(error);
-            res.json({ "message": "Insertion impossible" });
-        });
+        const regex: RegExp = /^[\w\s]+$/;
+        const result = regex.test(req.body.name);
+        if (result) {
+            Recipe.create(req.body)
+            .then(recipe => res.json(recipe))
+            .catch(error => {
+                console.log(error);
+                res.json({ "message": "Insertion impossible" });
+            });
+        }
+        res.send("Name accept only alphanumeric catacters.");
     };
 
     public async read(req: Request, res: Response): Promise<void> {
@@ -24,8 +29,21 @@ export class RecipeController extends CrudController
             .catch(error => console.log(error));
     }
 
-    update(req: Request, res: Response): void {
-        throw new Error("Method update not implemented.");
+    public update(req: Request, res: Response): void {
+        Recipe.findOne({ where: { id: req.params.id } })
+        .then(recipe => {
+            if (recipe) {
+                recipe.set(req.body);
+                recipe.save();
+                res.json(recipe);
+            } else {
+                res.json({ message: `No recipe with id ${req.params.id}` });
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            res.json({ message: "Update failed" });
+        });
     };
 
     delete(req: Request, res: Response): void {
