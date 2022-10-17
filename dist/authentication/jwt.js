@@ -30,18 +30,14 @@ const path = __importStar(require("path"));
 /**
  * création du token JWT
  */
-function generateToken() {
+function generateToken(user) {
     // Les informations que l'on souhaite enregistrer dans le token
     const payload = {
-        name: 'partenaire1',
-        userId: 123,
+        lastname: user.lastname,
+        firstname: user.firstname,
+        userId: user.id,
         // Les accès à l'API que l'on souhaite ouvrir à ce partenaire
-        accessTypes: [
-            'getRecipeList',
-            'showRecipe',
-            'updateRecipe',
-            'addRecipe'
-        ]
+        accessTypes: [user?.permission.role]
     };
     // Lecture du fichier private.key permettant de crypter le JWT
     const privateKey = fs.readFileSync(path.join(__dirname, './../../private.key'));
@@ -66,7 +62,6 @@ function validateToken(token) {
     const publicKey = fs.readFileSync(path.join(__dirname, './../../public.key'));
     return new Promise(function (resolve, reject) {
         (0, jsonwebtoken_1.verify)(token, publicKey, (error, decoded) => {
-            console.log('decode', decoded);
             if (error) {
                 return reject(error);
             }

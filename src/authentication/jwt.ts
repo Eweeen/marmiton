@@ -1,22 +1,19 @@
-import { JwtPayload, sign, SignOptions, verify, VerifyOptions } from 'jsonwebtoken';
+import { sign, SignOptions, verify } from 'jsonwebtoken';
 import * as fs from 'fs';
 import * as path from 'path';
+import { User } from '../models/User';
  
 /**
  * création du token JWT
  */
-export function generateToken() {
+export function generateToken(user: User) {
   // Les informations que l'on souhaite enregistrer dans le token
   const payload = {
-    name: 'partenaire1',
-    userId: 123,
+    lastname: user.lastname,
+    firstname: user.firstname,
+    userId: user.id,
     // Les accès à l'API que l'on souhaite ouvrir à ce partenaire
-    accessTypes: [
-      'getRecipeList',
-      'showRecipe',
-      'updateRecipe',
-      'addRecipe'
-    ]
+    accessTypes: [user?.permission.role]
   };
   // Lecture du fichier private.key permettant de crypter le JWT
   const privateKey = fs.readFileSync(path.join(__dirname, './../../private.key'));
@@ -51,7 +48,6 @@ export function validateToken(token: string): Promise<TokenPayload> {
 
   return new Promise(function (resolve, reject) {
     verify(token, publicKey, (error, decoded) => {
-      console.log('decode', decoded);
       if (error) {
         return reject(error);
       }
