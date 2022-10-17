@@ -26,7 +26,7 @@ Recipe.init({
     },
     description: {
         type: sequelize_1.DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     guests: {
         type: sequelize_1.DataTypes.INTEGER

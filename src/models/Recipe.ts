@@ -35,7 +35,7 @@ Recipe.init({
     },
     description: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     guests: {
         type: DataTypes.INTEGER
