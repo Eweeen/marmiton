@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
+const Permission_1 = require("../models/Permission");
 const User_1 = require("../models/User");
 const CrudController_1 = require("./CrudController");
 class UserController extends CrudController_1.CrudController {
@@ -17,7 +18,10 @@ class UserController extends CrudController_1.CrudController {
         });
     }
     show(req, res) {
-        User_1.User.findOne({ where: { id: req.params.id } })
+        User_1.User.findOne({
+            where: { id: req.params.id },
+            include: { model: Permission_1.Permission, as: 'permission' }
+        })
             .then(user => res.json(user))
             .catch(error => {
             console.log(error);

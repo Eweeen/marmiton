@@ -26,6 +26,7 @@ app.get("/recipes", Recipe_1.router);
 app.post("/recipe/add", Recipe_1.router);
 app.get("/recipe/show/:id", Recipe_1.router);
 app.patch("/recipe/update/:id", Recipe_1.router);
+app.get("/recipes/user/:id", Recipe_1.router);
 // Users routes
 // TODO CRUD
 app.get("/users", User_1.router);

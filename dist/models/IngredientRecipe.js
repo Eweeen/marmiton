@@ -36,3 +36,5 @@ IngredientRecipe.init({
     tableName: 'ingredients_recipes',
     timestamps: false,
 });
+IngredientRecipe.belongsTo(Ingredient_1.Ingredient, { foreignKey: 'ingredient_id', as: 'ingredient' });
+IngredientRecipe.belongsTo(Recipe_1.Recipe, { foreignKey: 'recipe_id', as: 'recipe' });

@@ -62,3 +62,9 @@ Recipe.init({
     createdAt: 'created_at',
     updatedAt: 'updated_at'
 });
+Recipe.belongsTo(Course_1.Course, { foreignKey: 'course_id' });
+Course_1.Course.hasOne(Recipe, { foreignKey: 'course_id' });
+Recipe.belongsTo(Season_1.Season, { foreignKey: 'season_id' });
+Season_1.Season.hasOne(Recipe, { foreignKey: 'season_id' });
+Recipe.belongsTo(User_1.User, { foreignKey: 'user_id' });
+User_1.User.hasMany(Recipe, { foreignKey: 'user_id' });

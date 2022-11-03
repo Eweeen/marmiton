@@ -38,3 +38,4 @@ exports.router.route('/recipes').get(Auth.authorize(["administrateur"]), recipeC
 exports.router.route('/recipe/add').post(Auth.authorize(["administrateur", "editeur"]), recipeController.create);
 exports.router.route('/recipe/show/:id').get(Auth.authorize(["administrateur", "editeur", "membre"]), recipeController.show);
 exports.router.route('/recipe/update/:id').patch(Auth.authorize(["administrateur", "editeur"]), recipeController.update);
+exports.router.route('/recipes/user/:id').get(Auth.authorize(["administrateur", "editeur", "membre"]), recipeController.getAllByUser);
