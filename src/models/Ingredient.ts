@@ -3,8 +3,8 @@ import { sequelize } from "../config/database";
 
 export class Ingredient extends Model
 {
-    public id!: number;
-    public name!: string;
+    declare id: number;
+    declare name: string;
 }
 
 Ingredient.init({
