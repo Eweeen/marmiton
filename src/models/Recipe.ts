@@ -6,16 +6,16 @@ import { User } from "./User";
 
 export class Recipe extends Model
 {
-    public id!: number;
-    public name!: string;
-    public slug!: string;
-    public description?: string;
-    public guests!: number;
-    public course_id!: number;
-    public season_id!: number;
-    public user_id!: number;
-    public createdAt!: Date;
-    public updatedAt!: Date;
+    declare id: number;
+    declare name: string;
+    declare slug: string;
+    declare description: string;
+    declare guests: number;
+    declare course_id: number;
+    declare season_id: number;
+    declare user_id: number;
+    declare createdAt: Date;
+    declare updatedAt: Date;
 }
 
 Recipe.init({
@@ -72,3 +72,11 @@ Recipe.init({
     createdAt: 'created_at',
     updatedAt: 'updated_at'
 });
+Recipe.belongsTo(Course, { foreignKey: 'course_id' });
+Course.hasOne(Recipe, { foreignKey: 'course_id' });
+
+Recipe.belongsTo(Season, { foreignKey: 'season_id' });
+Season.hasOne(Recipe, { foreignKey: 'season_id' });
+
+Recipe.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(Recipe, { foreignKey: 'user_id' });
