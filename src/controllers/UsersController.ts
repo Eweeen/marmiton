@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { generateToken } from "../authentication/jwt";
+import { Permission } from "../models/Permission";
 import { User } from "../models/User";
 import { CrudController } from "./CrudController";
 
@@ -19,7 +19,10 @@ export class UserController extends CrudController
     }
 
     public show(req: Request, res: Response): void {
-        User.findOne({ where: { id: req.params.id } })
+        User.findOne({
+            where: { id: req.params.id },
+            include: { model: Permission, as: 'permission' }
+        })
         .then(user => res.json(user))
         .catch(error => {
             console.log(error);
