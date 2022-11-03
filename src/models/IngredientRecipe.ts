@@ -8,6 +8,8 @@ export class IngredientRecipe extends Model
     public ingredient_id!: number;
     public recipe_id!: number;
     public quantity!: number;
+    public ingredient!: Ingredient;
+    public recipe!: Recipe;
 }
 
 IngredientRecipe.init({
@@ -39,3 +41,5 @@ IngredientRecipe.init({
     tableName: 'ingredients_recipes',
     timestamps: false,
 });
+IngredientRecipe.belongsTo(Ingredient, { foreignKey: 'ingredient_id', as: 'ingredient' });
+IngredientRecipe.belongsTo(Recipe, { foreignKey: 'recipe_id', as: 'recipe' });
