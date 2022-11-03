@@ -4,13 +4,13 @@ import { Permission } from "./Permission";
 
 export class User extends Model
 {
-    public id!: number;
-    public lastname!: string;
-    public firstname!: string;
-    public mail!: string;
-    public password!: string;
-    public permission_id!: number;
-    public permission!: Permission;
+    declare id: number;
+    declare lastname: string;
+    declare firstname: string;
+    declare mail: string;
+    declare password: string;
+    declare permission_id: number;
+    declare permission: Permission;
 }
 
 User.init({
@@ -56,4 +56,4 @@ User.init({
     createdAt: 'created_at',
     updatedAt: 'updated_at'
 });
-User.belongsTo(Permission, {foreignKey: 'permission_id', as: 'permission'});
+User.belongsTo(Permission, { foreignKey: 'permission_id', as: 'permission' });
